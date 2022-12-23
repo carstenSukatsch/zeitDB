@@ -1,6 +1,4 @@
 # zeitDB
 
-und wir sin im eZweig
+ein kleines übungsprojekt um githun und seien branches kennen zu lernen
 
-update
-noch etw    
