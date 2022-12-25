@@ -204,6 +204,10 @@ class TimeDataBase:
         self.__anzahlAnderung += 1
 
 
+    def gg( self, gggg ):
+        """ kkk
+        :param gggg:
+        """
 
     #
     #################################################################################
@@ -214,17 +218,26 @@ class TimeDataBase:
     #                     schlüssel für diesen datensatz, der die daten
     #                     gilt und sie gruppiert
     #
-    def add( self, key:str, timeStamp:datetime.datetime, dataDict:dict ):
+    def add( self, key:str, timeStamp:datetime.datetime, dataDict:dict[ str, int ] ):
+        """ dateneintrag zufügen
+            :param key:       schlüssel für diesen datensatz, der die daten gilt und sie gruppiert
+            :param timeStamp: zeitmarke
+            :param dataDict:   datenwerte zum abspeichern
+        """
 
         self.__anzahlAnderung += 1
         ##
         ## neuen datensatz zufügen, zuerst das dictionary
         ## mit den spaltennamen für schlüssel & zeit erweitern
         zeitStempelStr = timeStamp.strftime( TimeDataBase.ZEITFMT )
-        dataDict[ TimeDataBase.COL_TIMESTAMP ] = zeitStempelStr
-        dataDict[ TimeDataBase.COL_KEY ]       = key
+
+        # kopie vom dataDict erstellen, damit das type hinting nicjt nörgelt,
+        # wenn 'zeitStempelStr' zugewiesen wird
+        nD = dict( dataDict )
+        nD[ TimeDataBase.COL_TIMESTAMP ] = zeitStempelStr
+        nD[ TimeDataBase.COL_KEY ]       = key
         # und das dann dem datenfelf zufügen
-        dfData   = pd.DataFrame( [ dataDict ] )
+        dfData   = pd.DataFrame( [ nD ] )
         self._df = pd.concat( [ self._df, dfData ], ignore_index=True )
 
 
